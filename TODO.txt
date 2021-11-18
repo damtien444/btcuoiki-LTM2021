@@ -1,0 +1,23 @@
+DEADLINE: 1/12
+
+
+Yêu cầu:  
+- Thực hiện theo đúng mô hình MVC (10% điểm)
+- Có kết nối cơ sở dữ liệu (10% điểm)
+- Có 1 tính toán lớn (chạy ngầm, ví dụ như xử lý dữ liệu lớn, xử lý video, convert pdf ->doc, xây dựng mô hình học máy, kiểm tra đạo code, đạo văn tự động,...). Khi client gửi thông tin cần thực hiện xử lý, server sẽ đẩy thông tin đó vào 1 hằng đợi để thực hiện. Client sẽ xem kết quả xử lý thông qua account của bản thân. (30% điểm)
+* Phải có hướng dẫn cài đặt chương trình (Cài đặt tomcat, cài đặt database, hướng dẫn sử dụng ở các chức năng trong chương trình).
+Deadline 01/12/2021, link nộp bài sẽ gửi sau qua MSTeams
+
+Chủ đề: Một trang web phân tích hành động con người dựa trên dữ liệu video
+
+Sườn CV:
+- Xây dựng MVC & CSDL: Giữa tuần sau - 24/11
+- Xây dựng xử lý lớn: Hết tuần sau - 27/11
+- Viết document: 01/12
+
+Timeline họp:
+21 - 24 - 26 - 28 - 30 -> (15-30') cập nhật tình hình
+
+-> Lưu video tại 1 folder trên máy tính
+-> Database lưu người dùng (id,pw, ), lịch sử (lưu địa chỉ ánh xạ file)
+-> Sơ đồ nháp
