@@ -1,0 +1,28 @@
+CREATE TABLE Login (
+    id text primary key ,
+    pw text not null
+);
+
+SELECT * from Login;
+select * from  HISTORY;
+
+
+insert into Login values ("Hello", "123");
+insert into Login values ("abc", "123");
+insert into HISTORY values ("2", "abc", "C:/",35, null, true, "21-11-2021");
+insert into HISTORY values ("3", "abc", "C:/",37, null, true, "21-11-2021");
+insert into HISTORY values ("2", "abc", "reading", "35%", true, "21-11-2021");
+
+drop table HISTORY;
+drop table Login;
+
+CREATE TABLE HISTORY(
+    ma_session integer primary key autoincrement,
+    user_id text,
+    link_to_file text,
+    status int,
+    result text,
+    is_running boolean,
+    last_update timestamp,
+    FOREIGN KEY (user_id) references Login(id)
+)
