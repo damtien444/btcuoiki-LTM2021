@@ -1,7 +1,9 @@
-package model.Bean;
+package model.bean;
 
-public class Account {
-	String id,pw,name,sex,status;
+import java.io.Serializable;
+
+public class Account{
+	String id,pw;
 
 	public String getId() {
 		return id;
@@ -19,27 +21,4 @@ public class Account {
 		this.pw = pw;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 }

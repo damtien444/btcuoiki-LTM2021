@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.BO.CheckLoginBO;
-import model.Bean.Account;
+import model.BO.RetrieveUploadAttemptBO;
+import model.bean.Account;
+import model.bean.PredictResult;
+import model.bean.Session;
+import util.Util;
 
 @WebServlet("/GotoMyHomeServlet")
 public class GotoMyHomeServlet extends HttpServlet {
@@ -33,10 +38,15 @@ public class GotoMyHomeServlet extends HttpServlet {
 		if (a==null) {
 			response.sendRedirect("Login.jsp");
 		} else {
+
+			ArrayList<Session> all_saved_updload_attempt = RetrieveUploadAttemptBO.getAllSessionFromAccount(a);
+			ArrayList<PredictResult> resultList = Util.getResultList(all_saved_updload_attempt);
+			request.getSession().setAttribute("resultList", resultList);
 			request.getSession().setAttribute("account", a);
 			response.sendRedirect("MyHome.jsp");
 		}
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

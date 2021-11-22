@@ -7,27 +7,84 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryDAO {
-    // đổi path của database
+	
+    private static HistoryDAO instance;
     String path = "MyLoginDB SQLite.db";
-
-
     Connection c;
-    HistoryDAO() throws ClassNotFoundException, SQLException {
+    private static final String INSERT_SQL = "INSERT INTO HISTORY VALUES(?, ?, ?, ?, ?, ?, ?)";
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        HistoryDAO dao = new HistoryDAO();
+
+        // GetAll
+        System.out.println("Get All Sessions");
+        List<Session> sessions = dao.getAllSession("abc");
+        for (Session s: sessions) {
+            System.out.println(s.getLink_to_file());
+        }
+
+        // GetLast
+        System.out.println("Get Session");
+        ArrayList<Session> s= dao.getSession("abc");
+        System.out.println(s.get(0).getLink_to_file());
+
+    }
+    
+    public static HistoryDAO getInstance() {
+    	if(instance == null) {
+    		try {
+				instance = new HistoryDAO();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+    	}
+    	return instance;
+    }
+    
+    private HistoryDAO() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         this.c = DriverManager.getConnection("jdbc:sqlite:"+path);
         this.c.createStatement().execute("PRAGMA foreign_keys=ON");
     }
-
-    public Session getLastSession(String user_id){
+    
+    
+    public int insertSession(Session s) {
+    	 int numRowsInserted = 0;
+         PreparedStatement ps = null;
+         try {
+             ps = c.prepareStatement(INSERT_SQL);
+             ps.setInt(1, s.getMa_session());
+             ps.setString(2, s.getUser_id());
+             ps.setString(3, s.getLink_to_file());
+             ps.setInt(4,  s.getStatus());
+             ps.setString(5, s.getResult());  
+             ps.setBoolean(6, s.isIs_running());
+             ps.setTimestamp(7, s.getTimestamp());
+             numRowsInserted = ps.executeUpdate();
+         } catch (SQLException e) {
+             e.printStackTrace();
+         } finally {
+             close(ps);
+         }
+         return numRowsInserted;
+    }
+    
+    public ArrayList<Session> getSession(String user_id){
         try {
             String sql = "SELECT * FROM HISTORY WHERE HISTORY.user_id = ? order by ma_session desc";
             PreparedStatement prep = c.prepareStatement(sql);
             prep.setString(1, user_id);
             ResultSet rs = prep.executeQuery();
-
-            Session session = extractSession(user_id, rs);;
+            
+            ArrayList<Session> foundSession = new ArrayList<>();
+            while(rs.next()) {
+                Session s = extractSession(user_id, rs);
+                foundSession.add(s);
+            }
             prep.close();
-            return session;
+            return foundSession;
 
         } catch (Exception e){
             return null;
@@ -65,21 +122,15 @@ public class HistoryDAO {
 
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        HistoryDAO dao = new HistoryDAO();
-
-        // GetAll
-        System.out.println("Get All Sessions");
-        List<Session> sessions = dao.getAllSession("abc");
-        for (Session s: sessions) {
-            System.out.println(s.getLink_to_file());
+    
+    public static void close(Statement statement) {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        // GetLast
-        System.out.println("Get last Session");
-        Session s= dao.getLastSession("abc");
-        System.out.println(s.getLink_to_file());
-
     }
 
 }

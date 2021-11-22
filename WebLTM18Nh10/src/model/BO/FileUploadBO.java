@@ -38,12 +38,13 @@ public class FileUploadBO {
 	    for (FileItem fi : fileItems) {
 	    	if (!fi.isFormField()) {
 				String fileName = getFileName(fi);
-		
-				tempFile = new File(saveFileDirectory + fileName);
-				writeFile(fi);
-				fileNameList.add(fileName);
-				
-				System.out.println("Uploaded Filename: " + fileName + "to: " + saveFileDirectory  );		
+				if(fileName != null && !fileName.isEmpty()) {
+					tempFile = new File(saveFileDirectory + fileName);
+					writeFile(fi);
+					fileNameList.add(fileName);
+					
+					System.out.println("Uploaded Filename: " + fileName + "to: " + saveFileDirectory  );		
+				}
 			}
 	    }
 	    return fileNameList;

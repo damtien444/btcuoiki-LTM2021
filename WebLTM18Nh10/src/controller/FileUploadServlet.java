@@ -1,67 +1,65 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
-import java.io.*;
-import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import model.BO.FileSaverBO;
 import model.BO.FileUploadBO;
-import model.BO.ModelPredictorBO;
+import model.BO.RetrieveUploadAttemptBO;
+import model.bean.Account;
+import model.bean.PredictResult;
+import model.bean.Session;
+import util.Util;
 
-import javax.servlet.annotation.*;
-
-
-@WebServlet("/FileUploadServlet" )
+@WebServlet("/FileUploadServlet")
 
 public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<String> fileNameList;
 
-    public FileUploadServlet() {
-        super();
-    }
+	public FileUploadServlet() {
+		super();
+	}
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("FileUploadServlet.doGet()");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String saveDir = getServletContext().getInitParameter("file-upload");
-
-		initFileNameList(request);
+		Account curr_account = (Account) request.getSession().getAttribute("account");
     	try {
     		ArrayList<String> newlySavedFile = FileUploadBO.saveFile(request, saveDir);
-    		fileNameList.addAll(newlySavedFile);
-			FileSaverBO.save(newlySavedFile);		
-			
-			request.getSession().setAttribute("fileNameList", fileNameList);
-			ModelPredictorBO.getInstance().startToPredict(newlySavedFile.get(0), saveDir);
+    		if(newlySavedFile != null  && newlySavedFile.size() > 0) {	 
+    			System.out.println("Upload completed");
+	    		if(curr_account != null) {
+	    			System.out.println("Saving upload history to account: " + curr_account.getId());
+					FileSaverBO.saveNewUploadAttempt(curr_account, newlySavedFile);		
+	    			System.out.println("Saved...");
+	    		}
+    		}
+    		else {
+    			System.out.println("No any files were uploaded");
+    		}
+    			
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}    	 
 
-		response.setIntHeader("Refresh",2);
-		response.sendRedirect("MyHome.jsp");
+		System.out.println("Returning to Home page...");
+		ArrayList<Session> all_saved_updload_attempt = RetrieveUploadAttemptBO.getAllSessionFromAccount(curr_account);
+		
+		ArrayList<PredictResult> resultList = Util.getResultList(all_saved_updload_attempt);
+		System.out.println("Reset Resultlist : " + resultList);
+		request.getSession().setAttribute("resultList", resultList);
+		response.sendRedirect("ViewUploaded.jsp");
 	}
-	
-
-	private void initFileNameList(HttpServletRequest request) {
-		fileNameList = (ArrayList<String>) request.getSession().getAttribute("fileNameList");
-		if (fileNameList == null){
-			fileNameList = new ArrayList<>();
-		}		
-	}
-
-	
-
-
 }
