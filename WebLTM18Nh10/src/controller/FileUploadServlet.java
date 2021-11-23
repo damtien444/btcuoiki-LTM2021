@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileUploadException;
 
+import model.BO.ConnectModelServerBO;
 import model.BO.FileSaverBO;
 import model.BO.FileUploadBO;
 import model.BO.RetrieveUploadAttemptBO;
@@ -35,15 +36,28 @@ public class FileUploadServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String saveDir = getServletContext().getInitParameter("file-upload");
+		
 		Account curr_account = (Account) request.getSession().getAttribute("account");
     	try {
     		ArrayList<String> newlySavedFile = FileUploadBO.saveFile(request, saveDir);
+    		System.out.println("-----------------------------" + newlySavedFile);
     		if(newlySavedFile != null  && newlySavedFile.size() > 0) {	 
     			System.out.println("Upload completed");
-	    		if(curr_account != null) {
+	    		if(curr_account != null) { 
 	    			System.out.println("Saving upload history to account: " + curr_account.getId());
-					FileSaverBO.saveNewUploadAttempt(curr_account, newlySavedFile);		
+//					FileSaverBO.saveNewUploadAttempt(curr_account, newlySavedFile);		
+	    			ArrayList<Session> new_sessions = FileSaverBO.getNewUploadAttempt(curr_account, newlySavedFile);
 	    			System.out.println("Saved...");
+	    			
+	    			
+	    			// connect to Python server 
+	    			ConnectModelServerBO connect_server = new ConnectModelServerBO(9900);
+	    			connect_server.connectToServer();
+	    			// Send ma_session to python server
+	    			for(Session s: new_sessions) {
+	    				connect_server.sendMessageToServer(String.valueOf(s.getMa_session()));
+	    			}
+	    			
 	    		}
     		}
     		else {
@@ -53,7 +67,6 @@ public class FileUploadServlet extends HttpServlet {
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}    	 
-
 		System.out.println("Returning to Home page...");
 		ArrayList<Session> all_saved_updload_attempt = RetrieveUploadAttemptBO.getAllSessionFromAccount(curr_account);
 		
