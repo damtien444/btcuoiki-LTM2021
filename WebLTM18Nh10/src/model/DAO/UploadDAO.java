@@ -5,8 +5,7 @@ import java.util.Date;
 
 public class UploadDAO {
 
-    // đổi path của database
-    String path = "MyLoginDB SQLite.db";
+    String path = "C:\\\\LTM_webapps\\\\MyLoginDB SQlite.db";
 
 
     Connection c;
@@ -16,8 +15,6 @@ public class UploadDAO {
         this.c.createStatement().execute("PRAGMA foreign_keys=ON");
     }
 
-    // userID phai ton tai tren bang login thi moi chay dc
-    // gọi hàm này khi đã load xong video lên server
     public boolean addSession(String userID, String video_path) {
         try {
             String sql = "INSERT INTO HISTORY (ma_session, user_id, link_to_file, status, result, is_running, last_update)"

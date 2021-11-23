@@ -11,9 +11,9 @@ def openServer(localIP, localPort):
 
 def start_running():
     myServer = openServer(localIP, localPort)
-    path = "G:/NAM 4/LTM/eclipse/MyLoginDB SQLite.db"
+    path = "C:/LTM_WEBAPPS/MyLoginDB SQLite.db"
     myQ = MyQueue(mysql_path=path)
-    myQ.load_weight("Violence_video/src/weights/convlstm3d_128_16.pth")
+    myQ.load_weight("convlstm3d_128_16.pth")
     myQ.startThread()
     while (True):
         bytesAddressPair = myServer.recvfrom(1024)

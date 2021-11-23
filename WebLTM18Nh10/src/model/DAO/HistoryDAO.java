@@ -9,7 +9,7 @@ import java.util.List;
 public class HistoryDAO {
 	
     private static HistoryDAO instance;
-    String path = "MyLoginDB SQLite.db";
+    String path = "C:\\\\LTM_webapps\\\\MyLoginDB SQlite.db";
     Connection c;
     private static final String INSERT_SQL = "INSERT INTO HISTORY VALUES(?, ?, ?, ?, ?, ?, ?)";
 
