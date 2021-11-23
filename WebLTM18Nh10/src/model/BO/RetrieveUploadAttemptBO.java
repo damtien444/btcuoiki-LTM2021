@@ -9,7 +9,7 @@ import model.bean.Session;
 public class RetrieveUploadAttemptBO {
 
 	public static ArrayList<Session> getAllSessionFromAccount(Account curr_account) {
-		return HistoryDAO.getInstance().getSession(curr_account.getId());
+		return HistoryDAO.getInstance().getAllSession(curr_account.getId());
 	}
 
 }
