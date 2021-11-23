@@ -1,6 +1,6 @@
 ## Requirement
 ```angular2html
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ## Pretrain model and Video datset
