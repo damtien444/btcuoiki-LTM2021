@@ -39,9 +39,9 @@ public class GotoMyHomeServlet extends HttpServlet {
 			response.sendRedirect("Login.jsp");
 		} else {
 
-			ArrayList<Session> all_saved_updload_attempt = RetrieveUploadAttemptBO.getAllSessionFromAccount(a);
-			ArrayList<PredictResult> resultList = Util.getResultList(all_saved_updload_attempt);
-			request.getSession().setAttribute("resultList", resultList);
+//			ArrayList<Session> all_saved_updload_attempt = RetrieveUploadAttemptBO.getAllSessionFromAccount(a);
+//			ArrayList<PredictResult> resultList = Util.getResultList(all_saved_updload_attempt);
+//			request.getSession().setAttribute("resultList", resultList);
 			request.getSession().setAttribute("account", a);
 			response.sendRedirect("MyHome.jsp");
 		}
