@@ -34,13 +34,12 @@ public class CheckLoginDAO {
 	private static Account checkAccountSqlite(String username, String pw) {
 		String path =  System.getProperty("user.dir");
 		System.out.println(path);
-		
+
 		SQLiteDataSource ds = new SQLiteDataSource();
         ds.setUrl("jdbc:sqlite:" + path + "\\" + sqliteURL);
         try (Connection conn = ds.getConnection()) {
             System.out.println("Connected");
-            String sql = 
-                    "SELECT * FROM Login";
+            String sql = "SELECT * FROM Login";
             try (
                 Statement s = conn.createStatement();
                 ResultSet rs = s.executeQuery(sql)) {
