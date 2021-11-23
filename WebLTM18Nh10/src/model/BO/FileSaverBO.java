@@ -21,14 +21,27 @@ public class FileSaverBO  {
     	}
     	
     }
+    
+    public static ArrayList<Session> getNewUploadAttempt(Account curr_account, ArrayList<String> fileNameList) {
+    	ArrayList<Session> new_sessions = new ArrayList<Session>();
+    	for(String fileName : fileNameList) {
+    		Session s = createSession(curr_account, fileName);
+    		new_sessions.add(s);
+    		int numRowsInserted = HistoryDAO.getInstance().insertSession(s);
+    		System.out.println("Inserted : " + numRowsInserted + " rows");
+    		System.out.println("... session: " + s.getMa_session() + ", account: " + curr_account.getId());
+    	}
+    	return new_sessions;
+    }
+    
 
 	private static Session createSession(Account curr_account, String fileName) {
 		Session s = new Session();
-		s.setIs_running(true);
+		s.setIs_running(false);
 		s.setLink_to_file(fileName);
 		s.setMa_session(generateNewSessionId());
-		s.setResult("Not started");
-		s.setStatus(0);
+		s.setResult("None");
+		s.setStatus("0%");
 		s.setTimestamp(Timestamp.from(Instant.now()));
 		s.setUser_id(curr_account.getId());
 		return s;
