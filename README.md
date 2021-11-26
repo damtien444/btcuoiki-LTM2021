@@ -40,4 +40,4 @@ B2: Upload một video bất kì với kích thước không quá 100Mb.
 
 B3: Màn hình hiển thị lịch sử xử lý video của hệ thống.
 
-B4: Có thể logout hoặc quay về home page.
+B4: Có thể logout hoặc quay về home page để tiếp tục upload video khác. Thời gian để xử lý video là tương đối lâu, video được upload lên được xử lý lần lượt.
