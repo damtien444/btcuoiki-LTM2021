@@ -1,4 +1,4 @@
-package model.bean;
+package model.Bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -8,7 +8,7 @@ public class Session implements Serializable{
     int ma_session;
     String user_id;
     String link_to_file;
-    int status;
+    String status;
     String result;
     boolean is_running;
     Timestamp timestamp;
@@ -17,7 +17,7 @@ public class Session implements Serializable{
     	
     }
     
-    public Session(int ma_session, String user_id, String link_to_file, int status, String result, boolean is_running, Timestamp timestamp) {
+    public Session(int ma_session, String user_id, String link_to_file, String status, String result, boolean is_running, Timestamp timestamp) {
         this.ma_session = ma_session;
         this.user_id = user_id;
         this.link_to_file = link_to_file;
@@ -51,11 +51,11 @@ public class Session implements Serializable{
         this.link_to_file = link_to_file;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

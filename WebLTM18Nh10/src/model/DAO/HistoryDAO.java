@@ -1,15 +1,15 @@
 package model.DAO;
 
-import model.bean.Session;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Bean.Session;
+
 public class HistoryDAO {
 	
     private static HistoryDAO instance;
-    String path = "MyLoginDB SQLite.db";
+    String path = "C:\\\\LTM_webapps\\\\MyLoginDB SQlite.db";
     Connection c;
     private static final String INSERT_SQL = "INSERT INTO HISTORY VALUES(?, ?, ?, ?, ?, ?, ?)";
 
@@ -58,7 +58,7 @@ public class HistoryDAO {
              ps.setInt(1, s.getMa_session());
              ps.setString(2, s.getUser_id());
              ps.setString(3, s.getLink_to_file());
-             ps.setInt(4,  s.getStatus());
+             ps.setString(4,  s.getStatus());
              ps.setString(5, s.getResult());  
              ps.setBoolean(6, s.isIs_running());
              ps.setTimestamp(7, s.getTimestamp());
@@ -94,16 +94,16 @@ public class HistoryDAO {
     private Session extractSession(String user_id, ResultSet rs) throws SQLException {
         int ma_session = rs.getInt("ma_session");
         String link_to_file = rs.getString("link_to_file");
-        int status =rs.getInt("status");
+        String status =rs.getString("status");
         String result = rs.getString("result");
         Boolean is_running = rs.getBoolean("is_running");
         Timestamp last_update = rs.getTimestamp("last_update");
         return new Session(ma_session, user_id, link_to_file, status, result, is_running, last_update);
     }
 
-    public List<Session> getAllSession(String user_id){
+    public ArrayList<Session> getAllSession(String user_id){
 
-        List<Session> res = new ArrayList<>();
+    	ArrayList<Session> res = new ArrayList<>();
         try {
             String sql = "SELECT * FROM HISTORY WHERE HISTORY.user_id = ?";
             PreparedStatement prep = c.prepareStatement(sql);

@@ -4,14 +4,16 @@ import java.io.IOException;
 import java.sql.*;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
 
 import org.sqlite.SQLiteDataSource;
 
-import model.bean.Account;
+import model.Bean.Account;
 
 public class CheckLoginDAO {
-	public static final String sqliteURL = "MyLoginDB SQlite.db";
+	public static final String sqliteURL = "C:\\LTM_webapps\\MyLoginDB SQlite.db";
 	
 	
 	public static void main(String[] args) {
@@ -32,15 +34,15 @@ public class CheckLoginDAO {
 	}
 	
 	private static Account checkAccountSqlite(String username, String pw) {
-		String path =  System.getProperty("user.dir");
-		System.out.println(path);
+		//String path =  System.getProperty("user.dir");
+		//System.out.println(path);
+		
 		
 		SQLiteDataSource ds = new SQLiteDataSource();
-        ds.setUrl("jdbc:sqlite:" + path + "\\" + sqliteURL);
+        ds.setUrl("jdbc:sqlite:"   + sqliteURL);
         try (Connection conn = ds.getConnection()) {
             System.out.println("Connected");
-            String sql = 
-                    "SELECT * FROM Login";
+            String sql = "SELECT * FROM Login";
             try (
                 Statement s = conn.createStatement();
                 ResultSet rs = s.executeQuery(sql)) {

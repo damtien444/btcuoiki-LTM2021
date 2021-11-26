@@ -1,37 +1,42 @@
-package model.bean;
+package model.Bean;
 
-import java.io.Serializable;
 
 public class PredictResult {
-	protected String result;
-	protected String fileName;
+	String result, progress;
+	String runningStatus;
+	String fileName;
 	
-	public PredictResult(String fileName, String result) {
-		this.fileName = fileName;
+	public PredictResult(String result, String progress, String runningStatus, String fileName) {
+		super();
 		this.result = result;
+		this.progress = progress;
+		this.runningStatus = runningStatus;
+		this.fileName = fileName;
 	}
 	
+	public String getResult() {
+		return result;
+	}
 	public void setResult(String result) {
 		this.result = result;
 	}
-
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public String getProgress() {
+		return progress;
 	}
-
-
-	public String getResult() {
-		return result;
+	public void setProgress(String progress) {
+		this.progress = progress;
+	}
+	public String getRunningStatus() {
+		return runningStatus;
+	}
+	public void setRunningStatus(String runningStatus) {
+		this.runningStatus = runningStatus;
 	}
 	public String getFileName() {
 		return fileName;
 	}
-
-	@Override
-	public String toString() {
-		return "PredictResult [result=" + result + ", fileName=" + fileName + "]";
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
-	
-	
+
 }

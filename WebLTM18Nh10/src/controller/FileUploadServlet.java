@@ -11,18 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileUploadException;
 
-import model.BO.FileSaverBO;
+import model.BO.ConnectModelServerBO;
+import model.BO.UploadSessionSaverBO;
+import model.Bean.Account;
+import model.Bean.PredictResult;
+import model.Bean.Session;
 import model.BO.FileUploadBO;
 import model.BO.RetrieveUploadAttemptBO;
-import model.bean.Account;
-import model.bean.PredictResult;
-import model.bean.Session;
 import util.Util;
 
 @WebServlet("/FileUploadServlet")
 
 public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String whereToSaveOnDisk;
+	private Account curr_account;
+	private ArrayList<String> newlySavedFiles;
 
 	public FileUploadServlet() {
 		super();
@@ -33,33 +37,63 @@ public class FileUploadServlet extends HttpServlet {
 		System.out.println("FileUploadServlet.doGet()");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String saveDir = getServletContext().getInitParameter("file-upload");
-		Account curr_account = (Account) request.getSession().getAttribute("account");
-    	try {
-    		ArrayList<String> newlySavedFile = FileUploadBO.saveFile(request, saveDir);
-    		if(newlySavedFile != null  && newlySavedFile.size() > 0) {	 
-    			System.out.println("Upload completed");
-	    		if(curr_account != null) {
-	    			System.out.println("Saving upload history to account: " + curr_account.getId());
-					FileSaverBO.saveNewUploadAttempt(curr_account, newlySavedFile);		
-	    			System.out.println("Saved...");
-	    		}
-    		}
-    		else {
-    			System.out.println("No any files were uploaded");
-    		}
-    			
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		whereToSaveOnDisk = getServletContext().getInitParameter("file-upload");
+		
+		try {
+			uploadVideosAndPredictModel(request);
 		} catch (FileUploadException e) {
 			e.printStackTrace();
-		}    	 
+		}
+		redirectToUploadHistoryPage(request, response);
+	}
 
-		System.out.println("Returning to Home page...");
-		ArrayList<Session> all_saved_updload_attempt = RetrieveUploadAttemptBO.getAllSessionFromAccount(curr_account);
+
+	private void uploadVideosAndPredictModel(HttpServletRequest request) throws FileUploadException {
+
+		curr_account = (Account) request.getSession().getAttribute("account");
+		newlySavedFiles = saveFilesToDisk(request); 
 		
+		if (hasUploadedSomething()) {
+			recordUploadedAttemptToDB(curr_account);
+			runPythonModel(curr_account);
+		} else {
+			System.out.println("No files were uploaded");
+		}
+		
+	}
+
+
+	private ArrayList<String> saveFilesToDisk(HttpServletRequest request) throws FileUploadException {
+		System.out.println("Saving uploaded files  to " + whereToSaveOnDisk);
+		return FileUploadBO.saveFile(request, whereToSaveOnDisk);
+	}
+	
+	private boolean hasUploadedSomething() {
+		return newlySavedFiles != null && newlySavedFiles.size() > 0;
+	}
+
+	private void recordUploadedAttemptToDB(Account curr_account) {
+		UploadSessionSaverBO.saveNewUploadAttempt(curr_account, newlySavedFiles);		
+	}
+	
+	private void runPythonModel(Account curr_account) {
+		System.out.println("Running python model for uploaded files");
+		
+		ArrayList<Session> recent_sessions = UploadSessionSaverBO.getRecentUploadSessions();
+		
+		ConnectModelServerBO connect_server = new ConnectModelServerBO(9900);
+		connect_server.connectToServer();
+		for (Session s : recent_sessions) {
+			connect_server.sendMessageToServer(String.valueOf(s.getMa_session()));
+		}
+	}
+	
+	private void redirectToUploadHistoryPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ArrayList<Session> all_saved_updload_attempt = RetrieveUploadAttemptBO.getAllSessionFromAccount(curr_account);
 		ArrayList<PredictResult> resultList = Util.getResultList(all_saved_updload_attempt);
-		System.out.println("Reset Resultlist : " + resultList);
 		request.getSession().setAttribute("resultList", resultList);
 		response.sendRedirect("ViewUploaded.jsp");
+		
 	}
 }

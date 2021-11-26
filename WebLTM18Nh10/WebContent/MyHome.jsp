@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.BO.*"%>
-<%@page import="model.bean.*"%>
+<%@page import="model.Bean.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,8 +41,12 @@ table, th, td {
 	<a href="LogoutServlet"> Log out</a>
 	<%
 	} else {
-	response.sendRedirect("Login.jsp");
+		response.sendRedirect("Login.jsp");
 	}
 	%>
+	<form action="UploadHistoryServlet" method="get">
+    <input type="submit" value="View History" 
+         name="Submit" id="frm1_submit" />
+	</form>
 </body>
 </html>
