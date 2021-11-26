@@ -6,7 +6,7 @@ B1: Clone project từ git này.
 
 B2: Tải apache tomcat 8.5 và thêm vào eclipse.
 
-B3: Thêm sqlite-jdbc-3.7.2.jar vào Classpath của project, đồng thời, thêm sqlite-jdbc-3.7.2.jar vào lib của tomcat 8.5.
+B3: Thêm sqlite-jdbc-3.7.2.jar vào Classpath của project, đồng thời, thêm sqlite-jdbc-3.7.2.jar vào lib của tomcat 8.5 (khởi động lại eclipse).
 
 B4: Tạo thư mục tên “LTM_webapps” trong ổ C.
 
