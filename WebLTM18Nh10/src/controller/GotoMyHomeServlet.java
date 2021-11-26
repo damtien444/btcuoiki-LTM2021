@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.BO.CheckLoginBO;
 import model.BO.RetrieveUploadAttemptBO;
-import model.bean.Account;
-import model.bean.PredictResult;
-import model.bean.Session;
+import model.Bean.Account;
+import model.Bean.PredictResult;
+import model.Bean.Session;
 import util.Util;
 
 @WebServlet("/GotoMyHomeServlet")

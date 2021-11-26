@@ -3,8 +3,8 @@ package model.BO;
 import java.util.ArrayList;
 
 import model.DAO.HistoryDAO;
-import model.bean.Account;
-import model.bean.Session;
+import model.Bean.Account;
+import model.Bean.Session;
 
 public class RetrieveUploadAttemptBO {
 

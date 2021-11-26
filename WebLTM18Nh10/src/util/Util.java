@@ -2,8 +2,8 @@ package util;
 
 import java.util.ArrayList;
 
-import model.bean.PredictResult;
-import model.bean.Session;
+import model.Bean.PredictResult;
+import model.Bean.Session;
 
 public class Util {
 

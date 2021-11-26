@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.sqlite.SQLiteDataSource;
 
-import model.bean.Account;
+import model.Bean.Account;
 
 public class CheckLoginDAO {
 	public static final String sqliteURL = "MyLoginDB SQlite.db";

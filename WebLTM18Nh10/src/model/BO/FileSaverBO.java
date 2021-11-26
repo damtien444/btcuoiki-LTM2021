@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import model.DAO.HistoryDAO;
-import model.bean.Account;
-import model.bean.Session;
+import model.Bean.Account;
+import model.Bean.Session;
 
 public class FileSaverBO  {
 	static Random r = new Random();

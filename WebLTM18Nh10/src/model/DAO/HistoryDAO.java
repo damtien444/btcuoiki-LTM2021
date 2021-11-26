@@ -1,6 +1,6 @@
 package model.DAO;
 
-import model.bean.Session;
+import model.Bean.Session;
 
 import java.sql.*;
 import java.util.ArrayList;

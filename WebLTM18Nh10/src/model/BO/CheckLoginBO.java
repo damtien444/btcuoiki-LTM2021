@@ -1,7 +1,7 @@
 package model.BO;
 
 import model.DAO.CheckLoginDAO;
-import model.bean.Account;
+import model.Bean.Account;
 
 public class CheckLoginBO {
 

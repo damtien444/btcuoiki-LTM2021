@@ -14,9 +14,9 @@ import org.apache.commons.fileupload.FileUploadException;
 import model.BO.FileSaverBO;
 import model.BO.FileUploadBO;
 import model.BO.RetrieveUploadAttemptBO;
-import model.bean.Account;
-import model.bean.PredictResult;
-import model.bean.Session;
+import model.Bean.Account;
+import model.Bean.PredictResult;
+import model.Bean.Session;
 import util.Util;
 
 @WebServlet("/FileUploadServlet")

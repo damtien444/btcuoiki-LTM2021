@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.BO.*"%>
-<%@page import="model.bean.*"%>
+<%@page import="model.Bean.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
