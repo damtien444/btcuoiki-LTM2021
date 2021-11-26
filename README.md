@@ -1,4 +1,4 @@
-## Trang Web kiểm tra video chứa nội dung bạo lực
+## Một website kiểm tra video chứa nội dung bạo lực
 
 Bài tập cuối kì môn Lập trình mạng (11-2021), khoa Công nghệ Thông tin, trường Đại học Bách khoa, Đại học Đà Nẵng.
 
