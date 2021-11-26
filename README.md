@@ -53,4 +53,4 @@ B3: Màn hình hiển thị lịch sử xử lý video của hệ thống.
 
 B4: Có thể logout hoặc quay về home page để tiếp tục upload video khác. 
 
-Thời gian để xử lý video là tương đối lâu, video được upload lên được xử lý lần lượt/tuần tự.
+Thời gian để xử lý video là tương đối lâu, video được upload lên được xử lý lần lượt/tuần tự. Có thể theo dõi trạng thái làm việc hiện tại đến bao nhiêu phần trăm, kết quả cuối là hai nhãn violence và non-violence.
