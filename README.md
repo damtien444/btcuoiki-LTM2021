@@ -18,9 +18,10 @@ B6: Trỏ CMD đến thư mục Python, chạy câu lệnh “pip install -r req
 
 B7: Chạy câu lệnh python myServer.py
 
+B8: Chạy Login.jsp bằng run on server.
+
 ## lưu ý: vì vài lý do môi trường một vài thư viện có thể không được cài đầy đủ bởi câu lệnh trên, nên tùy hệ thống sẽ thực hiện pip install riêng với thư viện lỗi.
 
-B8: Chạy Login.jsp bằng run on server.
 
 # B.	Hướng dẫn sử dụng
 
