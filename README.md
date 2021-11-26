@@ -1,29 +1,40 @@
 # A.	Cài đặt và deploy
 
-Điều kiện: cài đặt python (và environment nếu muốn).
+Điều kiện: cài đặt python (và tạo environment riêng nếu muốn).
 
-B1: Clone folder từ git.
+B1: Clone project từ git này.
 
-B2: Cài đặt apache tomcat 8.5, thêm vào eclipse.
+B2: Tải apache tomcat 8.5 và thêm vào eclipse.
 
-B3: Thêm sqlite-jdbc-3.7.2.jar vào Classpath của project, thêm sqlite-jdbc-3.7.2.jar vào lib của tomcat 8.5.
+B3: Thêm sqlite-jdbc-3.7.2.jar vào Classpath của project, đồng thời, thêm sqlite-jdbc-3.7.2.jar vào lib của tomcat 8.5.
 
 B4: Tạo thư mục tên “LTM_webapps” trong ổ C.
 
 B4.1: Tạo thư mục “video” trong thư mục “LTM_webapps”.
 
-B5: Copy “MyLoginDB SQLite.db” vào thư mục “C:\\LTM_webapps”.
+B5: Copy “MyLoginDB SQLite.db” vào thư mục “C:\LTM_webapps”.
 
-B6: Trỏ CMD đến thư mục Python, chạy câu lệnh “pip install -r requirements.txt”.
+Cây thư mục tại ổ C như sau:
+```
+C:\
+|
+└─── LTM_webapps
+        |     MyLoginDB SQLite.db
+        └───  video
+                |     video1.mp4 \\ các video được upload lên server sẽ được lưu tại đây   
+                ....
+```
 
-B61: Tải weight cho model và đặt tại thư mục Python.
+B6: Trỏ CMD đến thư mục Python trong folder clone về từ git (..\btcuoiki-LTM20211\WebLTM18Nh10\Python), chạy câu lệnh “pip install -r requirements.txt”.
+
+B6.1: Tải weight cho model và đặt tại thư mục Python.
 Link: https://drive.google.com/file/d/1y7F_z3c5j0M9RJm9TFMmygtRdg4L_JeP/view?usp=sharing
 
-B7: Chạy câu lệnh python myServer.py.
+B7: Trong thư mục Python, dùng cmd chạy câu lệnh python myServer.py.
 
-B8: Chạy Login.jsp bằng run on server.
+B8: Trên eclipse, chạy Login.jsp bằng run on server.
 
-## lưu ý: vì vài lý do môi trường một vài thư viện có thể không được cài đầy đủ bởi câu lệnh trên, nên tùy hệ thống sẽ thực hiện pip install riêng với thư viện lỗi.
+## Xin lưu ý: Vì lý do môi trường trên các hệ thống khác nhau nên một vài thư viện có thể không được cài đầy đủ bởi câu lệnh trên, nên thực hiện pip install riêng với mỗi thư viện lỗi xuất hiện khi chạy myServer.py.
 
 
 # B.	Hướng dẫn sử dụng
@@ -40,4 +51,6 @@ B2: Upload một video bất kì với kích thước không quá 100Mb.
 
 B3: Màn hình hiển thị lịch sử xử lý video của hệ thống.
 
-B4: Có thể logout hoặc quay về home page để tiếp tục upload video khác. Thời gian để xử lý video là tương đối lâu, video được upload lên được xử lý lần lượt.
+B4: Có thể logout hoặc quay về home page để tiếp tục upload video khác. 
+
+Thời gian để xử lý video là tương đối lâu, video được upload lên được xử lý lần lượt/tuần tự.
