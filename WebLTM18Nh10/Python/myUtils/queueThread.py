@@ -9,15 +9,18 @@ class MyQueue():
         self.cfg = get_cfg()
         self.stream = PredictAction(self.cfg)
         self.mysql_path = mysql_path
-
     def worker(self):
         while True:
-            mysql = connectToDatabase(self.mysql_path)
-            mysql.set_ma_session(self.myQueue.get())
-            video_path = mysql.getPath_from_maSession()[0].replace("\\", "/")
-            self.stream.read_video(video_path)
-            self.stream.predict_activity(mysql)
-            self.myQueue.task_done()
+            mysql = None
+            try:
+                mysql = connectToDatabase(self.mysql_path)
+                mysql.set_ma_session(self.myQueue.get())
+                video_path = mysql.getPath_from_maSession()[0].replace("\\", "/")
+                self.stream.read_video(video_path)
+                self.stream.predict_activity(mysql)
+                self.myQueue.task_done()
+            except:
+                mysql.update_status("Error!!")
 
     def load_weight(self, model_path):
         self.stream.load_model(model_path)
