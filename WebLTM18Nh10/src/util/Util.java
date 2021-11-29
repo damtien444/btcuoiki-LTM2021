@@ -12,7 +12,7 @@ public class Util {
 		ArrayList<PredictResult> resultList = new ArrayList<>();
 		String runningStatus;
 		for(Session s : all_saved_updload_attempt) {
-			runningStatus = (s.isIs_running()) ? "Yes" : "Done";
+			runningStatus = (s.isIs_running()) ? "Yes" : "No";
 			
 			pr = new PredictResult(s.getStatus(), 
 					s.getResult(),
