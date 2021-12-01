@@ -76,4 +76,4 @@ Thời gian để xử lý video là tương đối lâu, video được upload 
 
 ## E. Tài liệu hướng dẫn chi tiết:
 
-[a link](https://github.com/damtien444/btcuoiki-LTM2021/blob/main/Final_Report_L%E1%BA%ADp%20tr%C3%ACnh%20m%E1%BA%A1ng.pdf)
+[ViolenceVideoClasify_Report_18n10_DQT_NNT_TQT.pdf](https://github.com/damtien444/btcuoiki-LTM2021/blob/main/Final_Report_L%E1%BA%ADp%20tr%C3%ACnh%20m%E1%BA%A1ng.pdf)
